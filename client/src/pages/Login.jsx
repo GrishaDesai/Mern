@@ -24,12 +24,18 @@ export default function Login() {
             });
 
             const res = response.status;
+            const json = await response.json();
+            console.log(json.token);
+
+            localStorage.setItem('token',json.token);
+            
             if (res === 200) {
                 alert("Login Successful")
-                navigate("/")
+                navigate("/product")
             }
 
         } catch (error) {
+            alert("Enter Correct Credentials")
             console.log("Internal Error");
             
         }
@@ -53,6 +59,10 @@ export default function Login() {
                           <div class="button login__submit" onClick={handleLogin}>
                               <button class="button__text" type='submit'>Log In Now</button>
                               <i class="button__icon fas fa-chevron-right"></i>
+                          </div>
+                          <div className='ps-2 mt-2 flex '>
+                              <p className='me-2'>not have an account?</p>
+                              <p className='text-white underline' onClick={() => navigate('/signup')}>Sign up</p>
                           </div>
                       </form>
 

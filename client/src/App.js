@@ -10,6 +10,7 @@ import Product from './pages/Product.jsx';
 import ProductAdd from './pages/ProductAdd.jsx';
 import ProductEdit from './pages/ProductEdit.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
+import ProtectedRoute from './pages/ProtectedRoute.js';
 
 function App() {
   return (
@@ -30,15 +31,37 @@ function App() {
     // </BrowserRouter>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<MainComponent />}>
-          <Route index element={<Home />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/product' element={<Product/>}/>
-          <Route path='/product/:id' element={<ProductDetail />} />
-          <Route path='/productAdd' element={<ProductAdd />} />
-          <Route path='/productEdit/:id' element={<ProductEdit />} />
-        </Route>
+        {/* <Route path='/' element={<MainComponent />}> */}
+        <Route path='/home' element={<Home />} />
+        <Route index element={<Signup />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+
+        <Route path='/product' element={
+          <ProtectedRoute>
+            <Product />
+          </ProtectedRoute>
+        }
+        />
+
+        <Route path='/product/:id' element={
+          <ProtectedRoute>
+            <ProductDetail />
+          </ProtectedRoute>
+        } />
+
+        <Route path='/productAdd' element={
+          <ProtectedRoute>
+            <ProductAdd />
+          </ProtectedRoute>
+        } />
+
+        <Route path='/productEdit/:id' element={
+          <ProtectedRoute>
+            <ProductEdit />
+          </ProtectedRoute>
+        } />
+        {/* </Route> */}
       </Routes>
     </BrowserRouter>
   );

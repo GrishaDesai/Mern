@@ -38,12 +38,12 @@ export const Login = async (req, res, next) => {
             return res.status(400).send({ message: 'Invalid details' });
         }
         console.log(user);
-        
 
         const isMatch = await bcrypt.compare(password, user.password);
         console.log(isMatch);
         
         if (!isMatch) {
+            console.log("not matched");
             return res.status(400).send({ message: 'Invalid details' });
         }
 
@@ -55,9 +55,9 @@ export const Login = async (req, res, next) => {
 
         const authToken = jwt.sign(data, jwtSecret);
 
-        console.log("my auth token is " + authToken)
+        // console.log("my auth token is " + authToken)
 
-        return res.status(200).json({ success: true});
+        return res.status(200).json({ token : authToken });
 
     } catch (error) {
         return res.status(500).json({ error: 'Internal server error' });

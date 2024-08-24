@@ -31,16 +31,25 @@ export default function Product() {
         }
     }
 
+    const handleLogout = async () => {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
+
     return (
         <div>
-            <h1 className='font-bold text-3xl ms-2 text-violet-950 my-2'>Product List</h1>
+
+            <div className='flex justify-between mx-10'>
+                <h1 className='font-bold text-3xl ms-2 text-violet-950 my-2'>Product List</h1>
+                <button className='bg-violet-500 px-3 py-1 rounded-md text-white my-2' onClick={handleLogout}>Logout</button>
+            </div>
             <button className='m-2 bg-violet-500 px-3 py-1 rounded-md text-white' onClick={() => navigate("/productAdd")}>Add</button>
-            <div className='flex'>
+            <div className='flex flex-wrap'>
                 {
                     product.map((data, index) => {
                         return (
                             <>
-                                <div className='border-2 p-2 m-2'>
+                                <div className='w-1/4 border-2 p-2 my-2'>
                                     <div key={index} className='flex-col' onClick={() => navigate(`/product/${data._id}`)}>
                                         <div><img src={data.image} className='w-[300px] h-[300px]' alt='...' /></div>
                                         <div>Category : {data.category}</div>

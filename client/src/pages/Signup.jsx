@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import '../css/signup.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSignup =async (e) => {
         e.preventDefault()
@@ -24,7 +26,10 @@ export default function Signup() {
 
         const json = response.status;
         console.log(json);
-        
+        if (json === 200) {
+            alert("Registered Successfully");
+            navigate("/login")
+        }
     }
 
     return (
@@ -48,6 +53,10 @@ export default function Signup() {
                             <div class="button login__submit" onClick={handleSignup}>
                                 <button class="button__text" type='submit'>Log In Now</button>
                                 <i class="button__icon fas fa-chevron-right"></i>
+                            </div>
+                            <div className='ps-2 mt-2 flex '>
+                                <p className='me-2'>already have an account?</p>
+                                <p className='text-white underline' onClick={() => navigate('/login')}>Login</p>
                             </div>
                         </form>
                         

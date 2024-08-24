@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 
 export default function ProductAdd() {
   const [product, setProduct] = useState({});
@@ -16,7 +17,7 @@ export default function ProductAdd() {
     e.preventDefault();
     try {
       console.log(category, name, price, image);
-      
+
       const response = await fetch("http://localhost:3001/api/product/addProduct",
         {
           method: "POST",
@@ -41,20 +42,20 @@ export default function ProductAdd() {
   }
 
   return (
-    <div className='flex flex-col'>
-      <div className='my-2'>
-        Category : <input type='text' placeholder='Enter Category' onChange={(e) => setCategory(e.target.value)} />
+      <div className='flex flex-col'>
+        <div className='my-2'>
+          Category : <input type='text' placeholder='Enter Category' onChange={(e) => setCategory(e.target.value)} />
+        </div>
+        <div className='my-2'>
+          Name : <input type='text' placeholder='Enter Name' onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className='my-2'>
+          Price : <input type='number' placeholder='Enter Price' onChange={(e) => setPrice(e.target.value)} />
+        </div>
+        <div className='my-2'>
+          Image : <input type='text' placeholder='Enter Image' onChange={(e) => setImage(e.target.value)} />
+        </div>
+        <button className='bg-primary ' onClick={handleSubmit}>Submit</button>
       </div>
-      <div className='my-2'>
-        Name : <input type='text' placeholder='Enter Name' onChange={(e) => setName(e.target.value)} />
-      </div>
-      <div className='my-2'>
-        Price : <input type='number' placeholder='Enter Price' onChange={(e) => setPrice(e.target.value)} />
-      </div>
-      <div className='my-2'>
-        Image : <input type='text' placeholder='Enter Image' onChange={(e) => setImage(e.target.value)} />
-      </div>
-      <button className='bg-primary ' onClick={handleSubmit}>Submit</button>
-    </div>
   )
 }
